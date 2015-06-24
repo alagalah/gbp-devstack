@@ -27,8 +27,9 @@ Usage
     
 1) Assign local.conf files::
 
-    Compute or control roles can be set up for each VM in local.conf by ODL_MODE element. This is already
-    done in compute-local.conf for compute VM, as well as in control-local.conf for control VM.
+    Compute or control roles can be set up for each VM in local.conf by ODL_MODE element.
+    This is already done in compute-local.conf for compute VM, as well as in
+    control-local.conf for control VM.
 
     Key sections to notice in local.conf::
 
@@ -47,15 +48,17 @@ Usage
     vagrant ssh [devstack-control|devstack-compute-1]
     cd devstack
     
-    You shold stack and unstack from $HOME/devstack directory. Rename [compute|control]-local.conf to
-    local.conf and copy it into this directory. You can easily copy to VM by placing the file
-    into git root directory (devstack-node) in your host machine. The file will be uploaded to VM into
-    /vagrant directory.
-    To make devstack-scripts visible modify /etc/environment by appending ':/vagrant/devstack-scripts'
-    to PATH variable. Also modify controller's ip if needed.
+    You shold stack and unstack from $HOME/devstack directory.
+    Rename [compute|control]-local.conf to local.conf and copy it into this directory. You
+    can easily copy to VM by placing the file into git root directory (devstack-node) in
+    your host machine. The file will be uploaded to VM into /vagrant directory.
+    To make devstack-scripts visible modify /etc/environment by appending
     
-    When stacking for the first time 'OFFLINE=True' has to be commented and 'RECLONE=yes' has to be
-    uncommented in local.conf file on all the VMs.
+      ':/vagrant/devstack-scripts'
+    
+    to PATH variable. Also modify controller's ip if needed.
+    When stacking for the first time 'OFFLINE=True' has to be commented and 'RECLONE=yes'
+    has to be uncommented in local.conf file on all the VMs.
     
     To stack safely, from $HOME/devstack directory on all the nodes execute:
     
@@ -66,8 +69,8 @@ Usage
         source openrc admin admin
         nova hypervisor-list
 
-    If everything went fine, comment 'RECLONE=yes' and uncomment OFFLINE=True. This saves a lot of
-    time for further restacking.
+    If everything went fine, comment 'RECLONE=yes' and uncomment OFFLINE=True. This saves
+    a lot of time for further restacking.
 
 Testing
 -------
