@@ -13,7 +13,7 @@ Usage
     
     A Vagrantfile is provided to easily create a DevStack environment to test with. To save
     performance, it is sufficient to run all the required services just on one VM. This VM is
-    identified as control. Other VMs are compute nodes. First, set number of compute nodes
+    identified as control node. Other VMs are compute nodes. First, set number of compute nodes
     desired by setting:
     
         'DEVSTACK_NUM_COMPUTE_NODES=1'
