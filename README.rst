@@ -48,7 +48,7 @@ Usage
     vagrant ssh [devstack-control|devstack-compute-1]
     cd devstack
     
-    You shold stack and unstack from $HOME/devstack directory.
+    You should stack and unstack from $HOME/devstack directory.
     Rename [compute|control]-local.conf to local.conf and copy it into this directory. You
     can easily copy to VM by placing the file into git root directory (devstack-node) in
     your host machine. The file will be uploaded to VM into /vagrant directory.
