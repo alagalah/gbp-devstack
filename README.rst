@@ -23,7 +23,7 @@ Usage
     
         vagrant up
     
-    If no VMs are generated yet, they will be now.
+    If no VMs have been generated yet, they will be now.
     
 1) Assign local.conf files::
 
