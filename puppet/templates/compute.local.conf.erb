@@ -76,7 +76,7 @@ heartbeat_timeout_threshold = 0
 [[post-config|$NOVA_CONF]]
 [DEFAULT]
 vnc_enabled=True
-novncproxy_base_url=http://<%= @hosts['devstack-control']['name'] %>:6080/vnc_auto.html
+novncproxy_base_url=http://<%= @hosts['devstack-control']['ipaddress'] %>:6080/vnc_auto.html
 vncserver_listen=0.0.0.0
 vncserver_proxyclient_address=<%= @hosts[@hostname]['ipaddress'] %>
 [oslo_messaging_rabbit]
