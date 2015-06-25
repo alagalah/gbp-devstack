@@ -29,14 +29,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       override.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_ubuntu-14.04_chef-provisionerless.box"
     end
     control.vm.hostname = "devstack-control"
-    control.vm.network "private_network", ip: "#{control_ip}", :name => 'vboxnet2', :adapter => 2
-    control.vm.network "private_network", ip: "#{neutron_ex_ip}", :name => 'vboxnet1', :adapter => 3
+    control.vm.network "private_network", ip: "#{control_ip}"
+    control.vm.network "private_network", ip: "#{neutron_ex_ip}", virtualbox__intnet: "mylocalnet" 
     control.vm.provider :virtualbox do |vb|
-      vb.memory = 4096
-      vb.gui = true
+      vb.memory = 6144
     end
     control.vm.provider "vmware_fusion" do |vf|
-      vf.vmx["memsize"] = "4096"
+      vf.vmx["memsize"] = "6144"
     end
     control.vm.provision "puppet" do |puppet|
       puppet.hiera_config_path = "puppet/hiera.yaml"
@@ -57,14 +56,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         override.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_ubuntu-14.04_chef-provisionerless.box"
       end
       compute.vm.hostname = "devstack-compute-#{compute_index}"
-      compute.vm.network "private_network", ip: "#{compute_ip}", :name => 'vboxnet2', :adapter => 2
-      compute.vm.network "private_network", ip: "192.168.111.12", :name => 'vboxnet1', :adapter => 3
+      compute.vm.network "private_network", ip: "#{compute_ip}"
+      #compute.vm.network "private_network", ip: "192.168.111.12", virtualbox__intnet: "mylocalnet"
       compute.vm.provider :virtualbox do |vb|
-        vb.memory = 4096
-	vb.gui = true
+        vb.memory = 6144
       end
       compute.vm.provider "vmware_fusion" do |vf|
-        vf.vmx["memsize"] = "4096"
+        vf.vmx["memsize"] = "6144"
       end
       compute.vm.provision "puppet" do |puppet|
         puppet.hiera_config_path = "puppet/hiera.yaml"
