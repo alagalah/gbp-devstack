@@ -21,7 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.manifest_file  = "base.pp"
   end
 
-  # Devstack Controller
+  # Devstack Controller6
   config.vm.define "devstack-control", primary: true do |control|
     control.vm.box = "trusty64"
     control.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box"
@@ -32,10 +32,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     control.vm.network "private_network", ip: "#{control_ip}"
     control.vm.network "private_network", ip: "#{neutron_ex_ip}", virtualbox__intnet: "mylocalnet" 
     control.vm.provider :virtualbox do |vb|
-      vb.memory = 6144
+      vb.memory = 4096
     end
     control.vm.provider "vmware_fusion" do |vf|
-      vf.vmx["memsize"] = "6144"
+      vf.vmx["memsize"] = "4096"
     end
     control.vm.provision "puppet" do |puppet|
       puppet.hiera_config_path = "puppet/hiera.yaml"
@@ -59,10 +59,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       compute.vm.network "private_network", ip: "#{compute_ip}"
       #compute.vm.network "private_network", ip: "192.168.111.12", virtualbox__intnet: "mylocalnet"
       compute.vm.provider :virtualbox do |vb|
-        vb.memory = 6144
+        vb.memory = 4096
       end
       compute.vm.provider "vmware_fusion" do |vf|
-        vf.vmx["memsize"] = "6144"
+        vf.vmx["memsize"] = "4096"
       end
       compute.vm.provision "puppet" do |puppet|
         puppet.hiera_config_path = "puppet/hiera.yaml"
