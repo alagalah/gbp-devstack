@@ -73,18 +73,19 @@ Usage
     a lot of time for further restacking.
 
 Testing
--------
+-----
 
-    Check the ovs bridges first
-    
-        sudo ovs-vsctl show
-    
-    If manager is not set
-    
-        sudo ovs-vsctl set-manager tcp:192.168.50.1:6640
+1) Check the ovs bridges first::
 
-    If controller has not been set together with manager
-    
-        sudo ovs-vsctl set-controller br-int tcp:192.168.50.1:6653
+    sudo ovs-vsctl show
+
+2) If manager is not set:
+
+    sudo ovs-vsctl set-manager tcp:192.168.50.1:6640
+
+3) If controller has not been set together with manager
+
+    sudo ovs-vsctl set-controller br-int tcp:192.168.50.1:6653
 
 More to come, including prebuilt scripts and how this integrates with GBP, GBP+SFC etc...
+
