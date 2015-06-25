@@ -79,11 +79,11 @@ Testing
 
     sudo ovs-vsctl show
 
-2) If manager is not set:
+2) If manager is not set::
 
     sudo ovs-vsctl set-manager tcp:192.168.50.1:6640
 
-3) If controller has not been set together with manager
+3) If controller has not been set together with manager::
 
     sudo ovs-vsctl set-controller br-int tcp:192.168.50.1:6653
 
