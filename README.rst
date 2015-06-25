@@ -12,8 +12,8 @@ Usage
 1) Run VMs::
     
     A Vagrantfile is provided to easily create a DevStack environment to test with. To save
-    performance, it is sufficient to run all the required services just on one VM. This VM is
-    identified as control node. Other VMs are compute nodes. First, set number of compute
+    performance, it is sufficient to run all the required services just on one VM. This VM
+    is identified as control node. Other VMs are compute nodes. First, set number of compute
     nodes desired by setting:
     
         'DEVSTACK_NUM_COMPUTE_NODES=1'
