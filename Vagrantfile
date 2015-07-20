@@ -21,7 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       puppet.manifest_file  = "base.pp"
   end
 
-  # Devstack Controller
+  # Devstack Controller6
   config.vm.define "devstack-control", primary: true do |control|
     control.vm.box = "trusty64"
     control.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box"
@@ -29,11 +29,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       override.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_ubuntu-14.04_chef-provisionerless.box"
     end
     control.vm.hostname = "devstack-control"
-    control.vm.network "private_network", ip: "#{control_ip}", :name => 'vboxnet2', :adapter => 2
-    control.vm.network "private_network", ip: "#{neutron_ex_ip}", :name => 'vboxnet1', :adapter => 3
+    control.vm.network "private_network", ip: "#{control_ip}"
+    control.vm.network "private_network", ip: "#{neutron_ex_ip}", virtualbox__intnet: "mylocalnet" 
     control.vm.provider :virtualbox do |vb|
       vb.memory = 4096
-      vb.gui = true
     end
     control.vm.provider "vmware_fusion" do |vf|
       vf.vmx["memsize"] = "4096"
@@ -57,11 +56,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         override.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_ubuntu-14.04_chef-provisionerless.box"
       end
       compute.vm.hostname = "devstack-compute-#{compute_index}"
-      compute.vm.network "private_network", ip: "#{compute_ip}", :name => 'vboxnet2', :adapter => 2
-      compute.vm.network "private_network", ip: "192.168.111.12", :name => 'vboxnet1', :adapter => 3
+      compute.vm.network "private_network", ip: "#{compute_ip}"
+      #compute.vm.network "private_network", ip: "192.168.111.12", virtualbox__intnet: "mylocalnet"
       compute.vm.provider :virtualbox do |vb|
         vb.memory = 4096
-	vb.gui = true
       end
       compute.vm.provider "vmware_fusion" do |vf|
         vf.vmx["memsize"] = "4096"
