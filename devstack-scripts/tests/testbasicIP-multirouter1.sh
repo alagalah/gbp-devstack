@@ -1,3 +1,4 @@
+source openrc coke coke
 neutron security-group-create client_sg
 neutron security-group-rule-create client_sg --direction egress --ethertype IPv4
 neutron security-group-rule-create client_sg --direction ingress --ethertype IPv4
@@ -6,9 +7,9 @@ neutron security-group-create video_sg
 neutron security-group-rule-create video_sg --direction egress --ethertype IPv4
 neutron security-group-rule-create video_sg --direction ingress --ethertype IPv4
 
-#neutron security-group-create game_sg
-#neutron security-group-rule-create game_sg --direction egress --ethertype IPv4
-#neutron security-group-rule-create game_sg --direction ingress --ethertype IPv4
+neutron security-group-create game_sg
+neutron security-group-rule-create game_sg --direction egress --ethertype IPv4
+neutron security-group-rule-create game_sg --direction ingress --ethertype IPv4
 
 
 neutron net-create net1
@@ -28,17 +29,16 @@ neutron router-interface-add r1 sub2
 
 
 testnovaboot-control.sh net1 client_sg 1 #"bekind" 
-testnovaboot-control.sh net2 client_sg 2
-testnovaboot-control.sh net2 video_sg 2
+testnovaboot-compute.sh net2 client_sg 2
 
 
-#testnovaboot-control.sh net1 video_sg 1 
-#testnovaboot-compute.sh net1 game_sg 1 
+testnovaboot-control.sh net1 video_sg 1 
+testnovaboot-compute.sh net1 game_sg 1 
 
 
 
-#testnovaboot-control.sh net2 video_sg 2 
-#testnovaboot-compute.sh net2 game_sg 2 #"bekind"
+testnovaboot-compute.sh net2 video_sg 2 
+testnovaboot-compute.sh net2 game_sg 2 #"bekind"
 
 #neutron router-create r2
 #neutron router-interface-add r2 sub3

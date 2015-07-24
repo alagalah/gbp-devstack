@@ -2,7 +2,7 @@ NETWORK=$1
 SEC_GRP=$2
 VM=$3
 IMAGE=$4
-FLAVOR=1
+FLAVOR=$5
 
 if [ $# -eq 0 ]
   then
@@ -14,10 +14,6 @@ fi
 : ${VM:=1}
 : ${IMAGE:=cirros-0.3.4-x86_64-uec}
 
-if [ $IMAGE == "bekind" ]
-then
-  FLAVOR=3
-fi
 
 IMAGE_ID=`nova image-list | egrep $IMAGE | awk '{print $2}'`
 set -- $IMAGE_ID

@@ -1,3 +1,0 @@
-echo "Communication on port 80 successful." > index.html
-while true ; do sudo nc -l -p 80  < index.html ; done
-
