@@ -57,7 +57,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
       compute.vm.hostname = "devstack-compute-#{compute_index}"
       compute.vm.network "private_network", ip: "#{compute_ip}"
-      #compute.vm.network "private_network", ip: "192.168.111.12", virtualbox__intnet: "mylocalnet"
+      compute.vm.network "private_network", ip: "192.168.111.12", virtualbox__intnet: "mylocalnet"
       compute.vm.provider :virtualbox do |vb|
         vb.memory = 4096
       end
