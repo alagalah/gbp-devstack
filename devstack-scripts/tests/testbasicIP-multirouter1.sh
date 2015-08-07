@@ -1,4 +1,4 @@
-source openrc coke coke
+source openrc admin admin
 neutron security-group-create client_sg
 neutron security-group-rule-create client_sg --direction egress --ethertype IPv4
 neutron security-group-rule-create client_sg --direction ingress --ethertype IPv4
@@ -28,17 +28,17 @@ neutron router-interface-add r1 sub1
 neutron router-interface-add r1 sub2
 
 
-testnovaboot-control.sh net1 client_sg 1 #"bekind" 
-testnovaboot-compute.sh net2 client_sg 2
+novaboot-control.sh net1 client_sg 1 #"bekind"
+novaboot-compute.sh net2 client_sg 2
 
 
-testnovaboot-control.sh net1 video_sg 1 
-testnovaboot-compute.sh net1 game_sg 1 
+novaboot-control.sh net1 video_sg 1
+novaboot-compute.sh net1 game_sg 1
 
 
 
-testnovaboot-compute.sh net2 video_sg 2 
-testnovaboot-compute.sh net2 game_sg 2 #"bekind"
+novaboot-compute.sh net2 video_sg 2
+novaboot-compute.sh net2 game_sg 2 #"bekind"
 
 #neutron router-create r2
 #neutron router-interface-add r2 sub3
@@ -46,14 +46,14 @@ testnovaboot-compute.sh net2 game_sg 2 #"bekind"
 #neutron router-interface-add r2 sub5
 
 
-#testnovaboot-control.sh net3 client_sg 3 
-#testnovaboot-compute.sh net3 client_sg 4
+#novaboot-control.sh net3 client_sg 3
+#novaboot-compute.sh net3 client_sg 4
 
-#testnovaboot-control.sh net4 video_sg 3
-#testnovaboot-compute.sh net4 game_sg 3
+#novaboot-control.sh net4 video_sg 3
+#novaboot-compute.sh net4 game_sg 3
 
-#testnovaboot-control.sh net5 video_sg 4 
-#testnovaboot-compute.sh net5 game_sg 4 
+#novaboot-control.sh net5 video_sg 4
+#novaboot-compute.sh net5 game_sg 4
 
 echo "control:"
 nova list --host devstack-control
