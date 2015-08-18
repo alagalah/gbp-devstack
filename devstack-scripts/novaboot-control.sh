@@ -1,3 +1,4 @@
+source openrc admin admin
 NETWORK=$1
 SEC_GRP=$2
 VM=$3

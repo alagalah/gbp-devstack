@@ -1,26 +1,23 @@
-[ "$1" ] || {
-    echo "Syntax:"
-    echo "flowCount <bridge> [table#]"
-    echo "Usage: flowCount <bridge>: shows flow count for entire switch."
-    echo "Usage: flowcount <bridge> <table#>: shows groups for switch and flows and flow count for particular table."
-    exit 1
-}
+#!/usr/bin/env bash
 
-if [ "$2" ]
+sw="br-int"
+set -e
+if [ "$1" ]
 then
-	clear 
-        echo "GROUPS:";sudo ovs-ofctl dump-groups $1 -OOpenFlow13; echo;echo "FLOWS:";sudo ovs-ofctl dump-flows $1 -OOpenFlow13 table=$2 --rsort=priority
+        echo "GROUPS:";
+        sudo ovs-ofctl dump-groups $sw -OOpenFlow13;
+        echo;echo "FLOWS:";sudo ovs-ofctl dump-flows $sw -OOpenFlow13 table=$1 --rsort=priority
 	echo
 	printf "Flow count: "
-	sudo ovs-ofctl dump-flows $1 -OOpenFlow13 table=$2 | wc -l
+	echo $(($(sudo ovs-ofctl dump-flows $sw -OOpenFlow13 table=$1 | wc -l)-1))
 else
-        clear
-        printf "No table entered. $1 flow count: "
-        sudo ovs-ofctl dump-flows $1 -OOpenFlow13 | wc -l
-	#echo "Expected single-node: 54 double-node: 62"
-	printf "\nTable0: "; sudo ovs-ofctl dump-flows $1 -OOpenFlow13 table=0| wc -l
-        printf "\nTable1: "; sudo ovs-ofctl dump-flows $1 -OOpenFlow13 table=1| wc -l
-        printf "\nTable2: "; sudo ovs-ofctl dump-flows $1 -OOpenFlow13 table=2| wc -l
-        printf "\nTable3: "; sudo ovs-ofctl dump-flows $1 -OOpenFlow13 table=3| wc -l
+        printf "No table entered. $sw flow count: ";
+        echo $(($(sudo ovs-ofctl dump-flows $sw -OOpenFlow13 | wc -l)-1))
+        printf "\nTable0: PortSecurity:  "; echo $(($(sudo ovs-ofctl dump-flows $sw -OOpenFlow13 table=0| wc -l)-1))
+        printf "\nTable1: IngressNat:    "; echo $(($(sudo ovs-ofctl dump-flows $sw -OOpenFlow13 table=1| wc -l)-1))
+        printf "\nTable2: SourceMapper:  "; echo $(($(sudo ovs-ofctl dump-flows $sw -OOpenFlow13 table=2| wc -l)-1))
+        printf "\nTable3: DestMapper:    "; echo $(($(sudo ovs-ofctl dump-flows $sw -OOpenFlow13 table=3| wc -l)-1))
+        printf "\nTable4: PolicyEnforcer:"; echo $(($(sudo ovs-ofctl dump-flows $sw -OOpenFlow13 table=4| wc -l)-1))
+        printf "\nTable5: EgressNAT:     "; echo $(($(sudo ovs-ofctl dump-flows $sw -OOpenFlow13 table=5| wc -l)-1))
+        printf "\nTable6: External:      "; echo $(($(sudo ovs-ofctl dump-flows $sw -OOpenFlow13 table=6| wc -l)-1))
 fi
-
