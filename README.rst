@@ -1,7 +1,7 @@
-devstack-nodes
+GBP-Devstack
 ==============
 
-This repo provides a Vagrantfile with provisioning that one can use to easily
+This repository provides a Vagrantfile with provisioning that one can use to easily
 get a cluster of nodes configured with DevStack.
 
 It is a fork of the wonderful work of Mr Flavio Fernandes
@@ -11,81 +11,86 @@ Usage
 
 1) Run VMs::
     
-    A Vagrantfile is provided to easily create a DevStack environment to test with. To save
-    performance, it is sufficient to run all the required services just on one VM. This VM
-    is identified as control node. Other VMs are compute nodes. First, set number of compute
-    nodes desired by setting:
+    A Vagrantfile is provided to easily create a DevStack environment to test with.
+    First, set number of compute nodes desired as environment variable. For example:
     
         'DEVSTACK_NUM_COMPUTE_NODES=1'
     
-    #Note: Only 3 or less nodes are supported today
-    Next, execute:
+    Next, from root folder execute:
     
         vagrant up
     
-    If no VMs have been generated yet, they will be now.
+    You should see a VMs to be generated in your hypervisor. VirtualBox is predefined.
     
-1) Assign local.conf files::
-
-    Compute or control roles can be set up for each VM in local.conf by ODL_MODE element.
-    This is already done in compute-local.conf for compute VM, as well as in
-    control-local.conf for control VM.
-
-    Key sections to notice in local.conf::
-
-        [[local|localrc]] LOGFILE=stack.sh.log
-        enable_plugin networking-odl https://github.com/stackforge/networking-odl
-
-        Q_PLUGIN=ml2
-        Q_ML2_TENANT_NETWORK_TYPE=vxlan
-        ODL_MGR_IP=${ODL_IP}
-        ENABLE_TENANT_TUNNELS=True
-        Q_ML2_TENANT_NETWORK_TYPE=vxlan
-        ODL_MODE=externalodl #control node | ODL_MODE=compute #compute node
-
 2) Start devstack::
     
-    vagrant ssh [devstack-control|devstack-compute-1]
-    cd devstack
+        vagrant ssh [devstack-control|devstack-compute-1]
+        cd devstack
     
-    You should stack and unstack from $HOME/devstack directory.
-    Rename [compute|control]-local.conf to local.conf and copy it into this directory. You
-    can easily copy to VM by placing the file into git root directory (devstack-node) in
-    your host machine. The file will be uploaded to VM into /vagrant directory.
-    To make devstack-scripts visible modify /etc/environment by appending
+    You are now in git repository refering to
     
-      ':/vagrant/devstack-scripts'
+        https://review.openstack.org/#/admin/projects/openstack-dev/devstack
     
-    to PATH variable. Also modify controller's ip if needed.
-    When stacking for the first time 'OFFLINE=True' has to be commented and 'RECLONE=yes'
-    has to be uncommented in local.conf file on all the VMs.
+    It might take a few minutes to stack for the first time.
     
-    To stack safely, from $HOME/devstack directory on all the nodes execute:
+        ./stack.sh
     
-        restack.sh
+    You may see other modules cloned in /opt/stack directory.
+
+3) Set environment path to demo scripts::
+
+    Modify /etc/environment by appending ':/vagrant/devstack-scripts'.
+
+        source /etc/environment
     
-    To verify from control node if all the nodes are stacked successfully.
+    To restack safely, it's recommended to copy the following scripts:
+
+        cp /vagrant/devstack-scripts/myunstack.sh /home/vagrant/devstack
+        cp /vagrant/devstack-scripts/restack.sh /home/vagrant/devstack
+
+4) Verify::
+
+    To verify from control node if all the nodes have stacked successfully:
     
         source openrc admin admin
         nova hypervisor-list
 
-    If everything went fine, comment 'RECLONE=yes' and uncomment OFFLINE=True. This saves
-    a lot of time for further restacking.
+5) Edit local.conf::
 
-Testing
------
+    Notice configuration file in /home/vagrant/devstack.
+    By default OFFLINE=True is commented out and RECLONE=yes is uncommented.
+    When you don't want to stack with updated modules in /opt/stack comment RECLONE=yes and uncomment
+    OFFLINE=True
+    It is recommended to do this after you successfully stack on all the nodes.
 
-1) Check the ovs bridges first::
+6) Backup your setup::
 
-    sudo ovs-vsctl show
+    It is strongly recommended to create snapshot of your VMs.
+    Here is one plugin you might use https://github.com/dergachev/vagrant-vbox-snapshot
 
-2) If manager is not set::
+7) Testing with ODL::
 
-    sudo ovs-vsctl set-manager tcp:192.168.50.1:6640
+    Make sure that ODL is running before every stacking.
+    Following features need to be installed:
+    
+        odl-groupbasedpolicy-neutronmapper
+        odl-restconf
 
-3) If controller has not been set together with manager::
+    Verify OVS setup after successful stacking:
 
-    sudo ovs-vsctl set-controller br-int tcp:192.168.50.1:6653
+        Check the ovs bridges first
 
-More to come, including prebuilt scripts and how this integrates with GBP, GBP+SFC etc...
+            sudo ovs-vsctl show
 
+        If manager has not been set
+
+            sudo ovs-vsctl set-manager tcp:192.168.50.1:6640
+
+        If controller has not been set
+
+            sudo ovs-vsctl set-controller br-int tcp:192.168.50.1:6653
+
+7) Notes::
+
+    There may be local.conf files in this repo as well. 
+    They may be used instead of generated local.conf files in your VMs.
