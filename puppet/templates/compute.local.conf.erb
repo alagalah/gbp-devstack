@@ -1,6 +1,6 @@
 [[local|localrc]]
-#enable_plugin networking-odl https://github.com/stackforge/networking-odl
-enable_plugin networking-odl https://github.com/flavio-fernandes/networking-odl stable/kilo
+enable_plugin networking-odl https://github.com/openstack/networking-odl stable/kilo
+#enable_plugin networking-odl https://github.com/flavio-fernandes/networking-odl stable/kilo
 
 LOGFILE=stack.sh.log
 LOG_COLOR=False
@@ -61,6 +61,20 @@ RABBIT_PASSWORD=rabbit
 SERVICE_TOKEN=service
 SERVICE_PASSWORD=admin
 ADMIN_PASSWORD=admin
+
+BRANCH=stable/kilo
+GLANCE_BRANCH=$BRANCH
+HORIZON_BRANCH=$BRANCH
+KEYSTONE_BRANCH=$BRANCH
+NOVA_BRANCH=$BRANCH
+NEUTRON_BRANCH=$BRANCH
+SWIFT_BRANCH=$BRANCH
+##CLIFF_BRANCH=$BRANCH
+##TEMPEST_BRANCH=$BRANCH
+CINDER_BRANCH=$BRANCH
+HEAT_BRANCH=$BRANCH
+TROVE_BRANCH=$BRANCH
+CEILOMETER_BRANCH=$BRANCH
 
 ODL_L3=True
 #Q_ML2_L3_PLUGIN=networking_odl.l3.l3_odl.OpenDaylightL3RouterPlugin

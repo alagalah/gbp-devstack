@@ -78,6 +78,7 @@ $deps = [
     'tcpdump',
     'unzip',
     'vlan',
+    'vim',
     'wget',
     'xbase-clients',
     'wireshark'
@@ -147,9 +148,9 @@ package { 'openvswitch-datapath-dkms':
     require  => Package['openvswitch-switch']
 }
 
-package { 'openvswitch-pki':
-    ensure   => installed,
-    provider => dpkg,
-    source   => "/home/vagrant/openvswitch-pki_${ovs_version}-1_all.deb",
-    require  => Package['openvswitch-datapath-dkms']
-}
+#package { 'openvswitch-pki':
+#    ensure   => installed,
+#    provider => dpkg,
+#    source   => "/home/vagrant/openvswitch-pki_${ovs_version}-1_all.deb",
+#    require  => Package['openvswitch-datapath-dkms']
+#}
