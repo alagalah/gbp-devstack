@@ -1,7 +1,7 @@
 [[local|localrc]]
 #enable_plugin networking-odl https://github.com/stackforge/networking-odl
 #enable_plugin networking-odl /vagrant/x/networking-odl.git plugin
-enable_plugin networking-odl https://github.com/flavio-fernandes/networking-odl stable/kilo
+enable_plugin networking-odl https://github.com/flavio-fernandes/networking-odl lithiumkilo
 
 LOGFILE=stack.sh.log
 SCREEN_LOGDIR=/opt/stack/data/log
@@ -21,8 +21,8 @@ disable_service q-metering
 disable_service q-lbaas
 disable_service q-lbaasv2
 disable_service q-fwaas
-enable_service neutron
-enable_service n-cauth
+#enable_service neutron
+#enable_service n-cauth
 
 HOST_IP=<%= @hosts['devstack-control']['ipaddress'] %>
 HOST_NAME=<%= @hosts['devstack-control']['name'] %>
@@ -30,17 +30,15 @@ SERVICE_HOST=$HOST_IP
 SERVICE_HOST_NAME=$HOST_NAME
 
 NEUTRON_CREATE_INITIAL_NETWORKS=False
-Q_PLUGIN=ml2
+#Q_PLUGIN=ml2
 Q_ML2_TENANT_NETWORK_TYPE=vxlan
 
 # https://github.com/stackforge/networking-odl/blob/master/devstack/settings
 ODL_MODE=externalodl
 
-ODL_NETVIRT_DEBUG_LOGS=True
+#ODL_NETVIRT_DEBUG_LOGS=True
 ODL_MGR_IP=<%= @hosts['opendaylight']['ipaddress'] %>
 ODL_PORT=8080
-#ODL_ARGS="-Xmx1024m -XX:MaxPermSize=512m"
-#ODL_BOOT_WAIT=70
 
 ENABLE_TENANT_TUNNELS=True
 
@@ -76,9 +74,23 @@ SERVICE_TOKEN=service
 SERVICE_PASSWORD=admin
 ADMIN_PASSWORD=admin
 
+BRANCH=stable/kilo
+GLANCE_BRANCH=$BRANCH
+HORIZON_BRANCH=$BRANCH
+KEYSTONE_BRANCH=$BRANCH
+NOVA_BRANCH=$BRANCH
+NEUTRON_BRANCH=$BRANCH
+SWIFT_BRANCH=$BRANCH
+##CLIFF_BRANCH=$BRANCH
+##TEMPEST_BRANCH=$BRANCH
+CINDER_BRANCH=$BRANCH
+HEAT_BRANCH=$BRANCH
+TROVE_BRANCH=$BRANCH
+CEILOMETER_BRANCH=$BRANCH
+
 ## Uncomment the lines below if odl is being configured to perform l3fwd
 ODL_L3=True
-Q_ML2_L3_PLUGIN=networking_odl.l3.l3_odl.OpenDaylightL3RouterPlugin
+#Q_ML2_L3_PLUGIN=networking_odl.l3.l3_odl.OpenDaylightL3RouterPlugin
 ## For L3
 [[post-config]|/etc/neutron/l3_agent.ini]]
 [DEFAULT]
@@ -87,8 +99,6 @@ interface_driver = neutron.agent.linux.interface.NullDriver
 ###### L3 from Mohnish
 [[post-config|/etc/neutron/neutron.conf]]
 [DEFAULT]
-#service_plugins = networking_odl.l3.l3_odl.OpenDaylightL3RouterPlugin,neutron_lbaas.services.loadbalancer.plugin.LoadBalancerPlugin,neutron.services.metering.metering_plugin.MeteringPlugin,neutron_vpnaas
-.services.vpn.plugin.VPNDriverPlugin,neutron_fwaas.services.firewall.fwaas_plugin.FirewallPlugin
 service_plugins = networking_odl.l3.l3_odl.OpenDaylightL3RouterPlugin
 ###### END L3 from Mohnish
  

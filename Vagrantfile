@@ -23,8 +23,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Devstack Controller6
   config.vm.define "devstack-control", primary: true do |control|
-    control.vm.box = "trusty64"
-    control.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box"
+    control.vm.box = "ubuntu/trusty64"
+    #control.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box"
     control.vm.provider "vmware_fusion" do |v, override|
       override.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_ubuntu-14.04_chef-provisionerless.box"
     end
@@ -50,8 +50,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define "devstack-compute-#{n+1}", autostart: true do |compute|
       compute_ip = compute_ips[n]
       compute_index = n+1
-      compute.vm.box = "trusty64"
-      compute.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box"
+      compute.vm.box = "ubuntu/trusty64"
+      #compute.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-14.04_chef-provisionerless.box"
       compute.vm.provider "vmware_fusion" do |v, override|
         override.vm.box_url = "http://opscode-vm-bento.s3.amazonaws.com/vagrant/vmware/opscode_ubuntu-14.04_chef-provisionerless.box"
       end
