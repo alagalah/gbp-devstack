@@ -9,8 +9,7 @@ SCREEN_LOGDIR=/opt/stack/data/log
 RECLONE=yes
 
 disable_all_services
-#enable_service nova n-cpu quantum n-novnc rabbit n-cauth
-enable_service n-cpu
+enable_service n-cpu n-novnc n-cauth
 
 HOST_IP=<%= @hosts[@hostname]['ipaddress'] %>
 HOST_NAME=<%= @hosts[@hostname]['name'] %>
