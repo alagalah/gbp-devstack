@@ -51,13 +51,13 @@ change the 'export ODL=' to the right IP address, save, exit, and repeat source 
 Stacking for the first time has to be done in RECLONE mode which allows Devstack modules to be cloned (into
 /opt/stack directory). Run the following script in $HOME/devstack directory::
 
-./stack.sh
+    ./stack.sh
  
 When it's done edit local.conf and:
 	
-uncomment: 'OFFLINE=True'
+    uncomment: 'OFFLINE=True'
 
-comment out: 'RECLONE=yes'
+    comment out: 'RECLONE=yes'
 
 To stack safely in OFFLINE mode, from $HOME/devstack directory on all the nodes execute::
 
