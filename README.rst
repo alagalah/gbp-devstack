@@ -48,13 +48,18 @@ To make devstack-scripts visible::
 This assumes that ODL is 192.168.50.1. If you need to change this, edit /etc/environment,
 change the 'export ODL=' to the right IP address, save, exit, and repeat source command above.
  
-After stacking for the first time, edit local.conf and:
+Stacking for the first time has to be done in RECLONE mode which allows Devstack modules to be cloned (into
+/opt/stack directory). Run the following script in $HOME/devstack directory::
+
+./stack.sh
+ 
+When it's done edit local.conf and:
 	
 uncomment: 'OFFLINE=True'
 
 comment out: 'RECLONE=yes'
 
-To stack safely, from $HOME/devstack directory on all the nodes execute::
+To stack safely in OFFLINE mode, from $HOME/devstack directory on all the nodes execute::
 
     restack.sh
 
