@@ -48,12 +48,12 @@ To make devstack-scripts visible::
 This assumes that ODL is 192.168.50.1. If you need to change this, edit /etc/environment,
 change the 'export ODL=' to the right IP address, save, exit, and repeat source command above.
  
-Stacking for the first time has to be done in RECLONE mode which allows Devstack modules to be cloned (into
+Stacking for the first time stack has to be done in RECLONE mode which allows Devstack modules to be cloned (into
 /opt/stack directory). Run the following script in $HOME/devstack directory::
 
     ./stack.sh
  
-When it's done edit local.conf and:
+When it's done edit local.conf and::
 	
     uncomment: 'OFFLINE=True'
 
@@ -76,12 +76,17 @@ To verify from control node if all the nodes are stacked successfully::
 Testing
 -----
 
-1) Check the ovs bridges first::
+1) Run Karaf before stacking and install features::
+
+    odl-groupbasedpolicy-neutronmapper
+    odl-restconf
+
+2) Check the ovs bridges::
 
     sudo ovs-vsctl show
 
 
-2) Run scripts from ~/devstack/ directory. These scripts are in the path. If you need to modify them,
+3) Run scripts from ~/devstack/ directory. These scripts are in the path. If you need to modify them,
    they are in /vagrant/devstack-scripts/tutorial::
 
     step01.sh: client node on devstack-control, web node on devstack-compute-1
@@ -94,14 +99,14 @@ Testing
 (videos and documentation coming soon).
 
 
-3. Useful commands to verify::
+4) Useful commands to verify::
 
     flowcount.sh br-int : gives per table flow counts
 
     flowcount.sh br-int <table#> : dumps flows from <table> in priority order
 
 
-4. You can point your browser at::
+5) You can point your browser at::
   
     Horizon: 192.168.50.20 (u: admin, p:admin).
 
