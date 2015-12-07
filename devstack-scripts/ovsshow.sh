@@ -1,2 +1,0 @@
-sudo ovs-vsctl show
-
